@@ -9,7 +9,7 @@ public class PageBean implements Serializable {
 
 	private static final long serialVersionUID = 2422581023658455731L;
 
-	//页码好
+	//页码
 	private int page=1;
 	//每页显示记录数
 	private int rows=10;
