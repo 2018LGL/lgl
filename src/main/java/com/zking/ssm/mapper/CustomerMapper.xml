@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Customer" >
+    <constructor >
+      <idArg column="customer_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="customer_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <resultMap id="oneToMany" type="com.zking.ssm.model.Customer" >
+    <id column="customer_id" property="customerId"/>
+    <result column="customer_name" property="customerName"/>
+    <collection property="lst" ofType="com.zking.ssm.model.Order">
+      <id column="order_id" property="orderId"/>
+      <result column="cid" property="cid"/>
+      <result column="order_no" property="orderNo"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    customer_id, customer_name
+  </sql>
+
+    <select id="queryCustomerLst" resultMap="oneToMany">
+      select * from
+      t_customer c left join t_order o on c.customer_id=o.cid
+    </select>
+</mapper>
